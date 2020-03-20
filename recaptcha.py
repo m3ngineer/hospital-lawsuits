@@ -7,8 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import config
 
-api_key = config.keys.api_key
-site_key = config.keys.site_key  # grab from site
+api_key = config.keys['api_key']
+site_key = config.keys['site_key']  # grab from site
 # url = 'https://www.google.com/recaptcha/api2/demo'
 url = 'https://iapps.courts.state.ny.us/webcivilLocal/captcha'
 
