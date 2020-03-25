@@ -6,6 +6,9 @@ NYS Civil Lawsuits Database:
 - https://iapps.courts.state.ny.us/webcivilLocal/LCSearch
 - https://iapps.courts.state.ny.us/nyscef/DocumentList?docketId=GWJWI9cSSKLw2uMaS69RJA==&display=all&courtType=Rockland%20County%20Supreme%20Court&resultsPageNum=1
 
+Articles
+- https://khn.org/news/hospital-group-mum-as-members-pursue-patients-with-lawsuits-and-debt-collectors/
+- https://www.npr.org/sections/health-shots/2019/06/25/735385283/hospitals-earn-little-from-suing-for-unpaid-bills-for-patients-it-can-be-ruinous
 
 - Recaptcha
 - List of hospital institutions
