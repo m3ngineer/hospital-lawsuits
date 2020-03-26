@@ -17,7 +17,7 @@ options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(options=options, executable_path=r'/Users/mattheweng/bin/chromedriver')
 driver.get("https://iapps.courts.state.ny.us/webcivilLocal/LCSearch?param=I")
 url = driver.current_url
-sleep(5)
+sleep(30)
 print(1, url)
 
 # Perform AntiCaptcha task
@@ -46,11 +46,13 @@ driver.execute_script(
 )
 
 # Wait a moment to execute the script (just in case).
-sleep(5)
+sleep(10)
 
 # Press submit button
 print('Submitting solution...')
 # driver.find_element_by_id('captcha_form').submit()
+WebDriverWait(driver, 10).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe[name^='a-'][src^='https://www.google.com/recaptcha/api2/anchor?']")))
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[@class='recaptcha-checkbox goog-inline-block recaptcha-checkbox-unchecked rc-anchor-checkbox']/div[@class='recaptcha-checkbox-checkmark']"))).click()
 
 '''
 
