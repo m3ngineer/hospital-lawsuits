@@ -11,5 +11,8 @@ Articles
 - https://www.npr.org/sections/health-shots/2019/06/25/735385283/hospitals-earn-little-from-suing-for-unpaid-bills-for-patients-it-can-be-ruinous
 
 - Recaptcha
-- List of hospital institutions
+- List of hospital institutions to search
 - Scrape sites for suit types
+- validate suits
+- Create database
+- Visualize number of suits based on institution
