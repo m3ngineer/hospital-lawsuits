@@ -29,9 +29,9 @@ stripe_keys = {
 
 stripe.api_key = stripe_keys['secret_key']
 
-@app.route("/client_token", methods=["GET"])
-def client_token():
-  return client_token = gateway.client_token.generate()
+# @app.route("/client_token", methods=["GET"])
+# def client_token():
+#   return client_token = gateway.client_token.generate()
 
 @app.route('/')
 def index():
@@ -42,6 +42,14 @@ def index():
           }, {
             'description': 'Todo 3'
           }])
+
+@app.route('/todos/create', method=['POST'])
+def create_todo():
+    description = request.form.get('description', '')
+    todo = Todo(description=description)
+    db.session.add(todo)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
