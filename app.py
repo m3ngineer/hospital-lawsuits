@@ -1,11 +1,11 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
-import braintree
+# import braintree
 
 import app_config
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://udacitystudios@localhost:5432/todoapp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://mattheweng@localhost:5432/health_econ'
 db = SQLAlchemy(app)
 
 # Model
@@ -20,14 +20,14 @@ class Todo(db.Model):
 db.create_all()
 
 # Paypal
-gateway = braintree.BraintreeGateway(access_token=use_your_access_token)
-
-stripe_keys = {
-  'secret_key': os.environ['STRIPE_SECRET_KEY'],
-  'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
-}
-
-stripe.api_key = stripe_keys['secret_key']
+# gateway = braintree.BraintreeGateway(access_token=use_your_access_token)
+#
+# stripe_keys = {
+#   'secret_key': os.environ['STRIPE_SECRET_KEY'],
+#   'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
+# }
+#
+# stripe.api_key = stripe_keys['secret_key']
 
 # @app.route("/client_token", methods=["GET"])
 # def client_token():
@@ -35,22 +35,20 @@ stripe.api_key = stripe_keys['secret_key']
 
 @app.route('/')
 def index():
-    return render_template('index.html', data=[{
-            'description': 'Todo 1'
-          }, {
-            'description': 'Todo 2'
-          }, {
-            'description': 'Todo 3'
-          }])
+    return render_template('index.html', data=Todo.query.all())
 
-@app.route('/todos/create', method=['POST'])
+@app.route('/todos/create', methods=['POST'])
 def create_todo():
-    description = request.form.get('description', '')
-    todo = Todo(description=description)
-    db.session.add(todo)
-    db.session.commit()
-    return redirect(url_for('index'))
-
+  # description = request.form.get('description', ''
+  print(request.get_json())
+  description = request.get_json()['description']
+  todo = Todo(description=description)
+  db.session.add(todo)
+  db.session.commit()
+  # return redirect(url_for('index'))
+  return jsonify({
+    'description': todo.description
+  })
 
 if __name__ == '__main__':
     app.run()
