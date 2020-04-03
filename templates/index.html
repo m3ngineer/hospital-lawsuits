@@ -42,6 +42,9 @@
           liItem.innerHTML = jsonResponse['description']
           document.getElementById('todos').appendChild(liItem);
         })
+        .catch(function() {
+          document.getElementById('error').className='';
+        })
 
       }
     </script>
