@@ -23,7 +23,7 @@ class Todo(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html', data=Todo.query.all())
+    return render_template('index.html', data=Todo.query.order_by('id').all())
 
 @app.route('/todos/create', methods=['POST'])
 def create_todo():
@@ -32,10 +32,11 @@ def create_todo():
   body = {}
   try:
       description = request.get_json()['description']
-      todo = Todo(description=description)
+      todo = Todo(description=description, completed=False)
       db.session.add(todo)
       db.session.commit()
       body['description']  = todo.description
+      body['completed'] = todo.completed
   except:
       db.session.rollback()
       error=True
