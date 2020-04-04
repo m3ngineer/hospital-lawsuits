@@ -64,5 +64,21 @@ def update_todo(todo_id):
 
     return redirect(url_for('index'))
 
+@app.route('/todos/<todo_id>/delete', methods=['DELETE'])
+def delete_todo(todo_id):
+
+    try:
+        # completed_state = request.get_json()['completed']
+        todo = Todo.query.get(todo_id)
+        db.session.delete(todo)
+        db.session.commit()
+    except:
+        db.session.rollback()
+        abort(400)
+    finally:
+        db.session.close()
+
+    return jsonify({ 'success': True })
+
 if __name__ == '__main__':
     app.run(debug=True)

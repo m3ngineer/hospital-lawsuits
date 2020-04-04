@@ -36,12 +36,32 @@
       {% for d in data %}
       <li><input class='check-completed' data-id='{{ d.id }}' type='checkbox' {% if d.completed %} checked {% endif %} />
         {{ d.description }}
-        <button>&cross;</button>
+        <button class='delete-todo-button' data-id='{{ d.id }}'>&cross;</button>
       </li>
       {% endfor %}
     </ul>
 
     <script>
+      // Deleteing a todo
+      const deleteTodoButtons = document.querySelectorAll('.delete-todo-button');
+      console.log(deleteTodoButtons);
+      for (let i = 0; i < deleteTodoButtons.length; i++) {
+        const deleteTodoButton = deleteTodoButtons[i];
+        deleteTodoButton.onclick = function(e) {
+          const todoId = e.target.dataset['id'];
+          fetch('todos/' + todoId + '/delete', {
+            method: 'DELETE'
+          })
+          // .then(function() {
+          //   document.getElementById('error').className = 'hidden';
+          // })
+          // .catch(function() {
+          //   document.getElementById('error').className='';
+          // })
+        }
+      }
+
+      // Updating a todo as completed/uncompleted
       const checkboxes = document.querySelectorAll('.check-completed');
       for (let i = 0; i < checkboxes.length; i++) {
         const checkbox = checkboxes[i]
@@ -63,6 +83,7 @@
         }
       }
 
+      // Creating a todo
       document.getElementById('form').onsubmit = function(e) {
         console.log('test');
         e.preventDefault();
